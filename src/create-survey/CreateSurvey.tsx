@@ -1,13 +1,13 @@
 import SurveyBuilder from "./SurveyBuilder";
 import { ISurvey } from "./models";
 import { FunctionComponent } from "react";
-
+import {v4} from 'uuid'
 
 
 
 const CreateSurvey: FunctionComponent = () => {
 
-    const emptySurvey: ISurvey = { name : '', surveyID: 0, questions: [{text: '', answers: [], IsMultipleChoice: false, numberInSurvey: 1}] }
+    const emptySurvey: ISurvey = { name : '', surveyID: 0, questions: [{QuestionID: v4(), text: '', answers: [], IsMultipleChoice: false, numberInSurvey: 1}] }
     // console.log(emptySurvey)
     return (
         <div>
