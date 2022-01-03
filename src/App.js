@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+import './App.css';
+import { BrowserRouter as Router, Routes, Route, NavLink} from "react-router-dom";
+import Home from './home/Home';
+import CreateSurvey from './create-survey/CreateSurvey';
+import EditSurvey from './edit-survey/EditSurvey';
+import NotFound from './home/NotFound';
+import EditSelect from './home/EditSelect';
+
+
+export default function App() {
+  return (    
+    
+    <main>
+      <div className="container ml-3">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={Home()} />
+          <Route path="/createsurvey" element={CreateSurvey()} />
+          <Route path="/editsurvey/:id" element={<EditSurvey />}/>
+          <Route path="/editsurveys" element={<EditSelect />}/>
+          <Route path="*" element = {NotFound()} />
+        </Routes>
+      </div>      
+    </main>    
+   
   );
 }
 
-export default App;
+function Navbar() {
+  return (
+  <nav>
+    <NavLink to="/"> Home | </NavLink>
+    <NavLink to="/createsurvey"> Create a Survey | </NavLink>
+    <NavLink to ="/editsurveys"> Edit a Survey </NavLink>
+  </nav>
+  )
+}
+
+
+
