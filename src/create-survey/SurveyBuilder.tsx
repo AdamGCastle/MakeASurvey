@@ -3,6 +3,7 @@ import QuestionBuilder from "./QuestionBuilder";
 import { ChangeEvent } from "react";
 import { IQuestion, ISurvey } from "./models";
 import { useNavigate } from "react-router-dom";
+import { v4 } from "uuid";
 
 
 interface SurveyBuilderProps{       
@@ -28,7 +29,7 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
                             console.log(mySurvey);
         const copyOfMySurvey = {...mySurvey};
         const numberInSurvey = copyOfMySurvey.questions.length +1;
-        copyOfMySurvey.questions.push({text: '', answers: [], IsMultipleChoice: false, numberInSurvey: numberInSurvey});
+        copyOfMySurvey.questions.push({QuestionID: v4(), text: '', answers: [], IsMultipleChoice: false, numberInSurvey: numberInSurvey});
         
         setSurvey(copyOfMySurvey);
     }
@@ -110,7 +111,7 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
             {
                 mySurvey.questions.map((q, index) => (
                     <QuestionBuilder 
-                    key={index} 
+                    key={q.QuestionID} 
                     questionNumber={index+1}
                     onQuestionUpdated={(question: IQuestion) => onQuestionUpdated(question, index)}
                     removeQuestion={(questionNum: number) => removeQuestion(index)}

@@ -5,6 +5,7 @@ export interface ISurvey{
 }
 
 export interface IQuestion{
+    QuestionID: string;
     text: string
     answers: IAnswer[]
     IsMultipleChoice: boolean;
