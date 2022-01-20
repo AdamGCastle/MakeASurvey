@@ -24,10 +24,8 @@ const EditSurvey: FunctionComponent = () => {
     const navigate = useNavigate();
 
 
-
     const getSurvey = useCallback(async () => {
-
-        console.log(id);
+        
 
         if(id === null) {
             console.log(`no id parameter`)
@@ -85,9 +83,6 @@ const EditSurvey: FunctionComponent = () => {
     const cancel = () => {        
         setShowDeleteDialogue(false);
     }
-
-
-
     
 
 

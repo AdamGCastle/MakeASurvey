@@ -14,4 +14,5 @@ export interface IQuestion{
 
 export interface IAnswer{
     text: string
+    AnswerID: string;
 }

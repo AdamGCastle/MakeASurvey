@@ -1,7 +1,8 @@
 import { ChangeEvent, FunctionComponent } from "react";
 import { useState } from "react";
 import AnswerBuilder from "./AnswerBuilder"
-import { IQuestion } from "./models";
+import { IQuestion, IAnswer } from "./models";
+
 
 interface IQuestionUpdatedFunction{
     (updatedQuestion: IQuestion): void
@@ -51,15 +52,27 @@ const QuestionBuilder: FunctionComponent<QuestionBuilderProps> = ({questionNumbe
     const addAnswer = () => {
         
         const copyOfMyQuestion = {...myQuestion};
-        copyOfMyQuestion.answers.push({text: ''});
+        copyOfMyQuestion.answers.push({text: '', AnswerID: ''});
         
         setQuestion(copyOfMyQuestion);
     }
 
-    const onAnswerUpdated = (answerText: string, index: number) => {
+    const removeAnswer = (answerNum: number) => {
+        
+        const indexOfAnswer = answerNum;
+        const copyOfMyQuestion = {...myQuestion};
+        copyOfMyQuestion.answers.splice(indexOfAnswer,1);   
+        console.log(copyOfMyQuestion);
+        
+        setQuestion(copyOfMyQuestion);  
+        onQuestionUpdated(copyOfMyQuestion); 
 
-        const copyOfNewQuestion = {...myQuestion};
-        copyOfNewQuestion.answers[index].text = answerText;
+    }
+
+    const onAnswerUpdated = (answer: IAnswer, index: number) => {
+
+        const copyOfNewQuestion = {...myQuestion};        
+        copyOfNewQuestion.answers[index] = answer;
 
         setQuestion(copyOfNewQuestion);
         onQuestionUpdated(copyOfNewQuestion);
@@ -78,10 +91,11 @@ const QuestionBuilder: FunctionComponent<QuestionBuilderProps> = ({questionNumbe
             {
                 myQuestion.answers.map((a, index) => (
                     <AnswerBuilder
-                     key={index} 
+                     key={a.AnswerID} 
                      answerNumber={index+1} 
-                     onAnswerUpdated={(answerText: string) => onAnswerUpdated(answerText, index)}
-                     initialAnswerValue={initialQuestionValue.answers[index]} 
+                     onAnswerUpdated={(answer: IAnswer) => onAnswerUpdated(answer, index)}
+                     removeAnswer={() => removeAnswer(index)}
+                     initialAnswerValue={a} 
                      />         
                 ))
             }

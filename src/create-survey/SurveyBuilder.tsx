@@ -53,23 +53,13 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
         setSurvey(copyOfMySurvey);        
         // console.log(copyOfMySurvey)
     }
-
-    const onSurveyNameUpdated = (surveyName: string) => {
-        
-        const copyOfMySurvey = {...mySurvey};
-        
-        copyOfMySurvey.name = surveyName;
-        // console.log(copyOfMySurvey);
-        setSurvey(copyOfMySurvey);
-        
-        
-    }
+   
 
     const surveyJson = JSON.stringify(mySurvey);
 
     const submitSurvey = async () => {
         
-        if(mySurvey.surveyID == 0){
+        if(mySurvey.surveyID === 0){
             console.log('New Survey to Create. Send to api: ' + JSON.stringify(mySurvey));
             const response = await fetch('https://localhost:44322/api/surveys', { 
             method: 'POST',
