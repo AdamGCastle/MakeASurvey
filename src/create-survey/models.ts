@@ -5,7 +5,7 @@ export interface ISurvey{
 }
 
 export interface IQuestion{
-    QuestionID: string;
+    questionID: number;
     text: string
     answers: IAnswer[]
     IsMultipleChoice: boolean;
@@ -14,5 +14,7 @@ export interface IQuestion{
 
 export interface IAnswer{
     text: string
-    AnswerID: string;
+    answerID: number;
+    answerNumber: number;
+
 }

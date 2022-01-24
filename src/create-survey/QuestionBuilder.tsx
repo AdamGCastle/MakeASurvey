@@ -2,6 +2,7 @@ import { ChangeEvent, FunctionComponent } from "react";
 import { useState } from "react";
 import AnswerBuilder from "./AnswerBuilder"
 import { IQuestion, IAnswer } from "./models";
+import { v4 } from "uuid";
 
 
 interface IQuestionUpdatedFunction{
@@ -52,16 +53,18 @@ const QuestionBuilder: FunctionComponent<QuestionBuilderProps> = ({questionNumbe
     const addAnswer = () => {
         
         const copyOfMyQuestion = {...myQuestion};
-        copyOfMyQuestion.answers.push({text: '', AnswerID: ''});
+        const ansNumber = copyOfMyQuestion.answers.length+1
+        copyOfMyQuestion.answers.push({text: '', answerID: Math.random(), answerNumber: ansNumber});
         
         setQuestion(copyOfMyQuestion);
     }
 
-    const removeAnswer = (answerNum: number) => {
-        
-        const indexOfAnswer = answerNum;
+    const removeAnswer = (answerID: number) => {
+                
+        console.log(`Hi! I'm the removeAnswer() function. The Answer ID I've been told to take out of the survey.questions.answers array is ${answerID}. Let's get on that now.`)
         const copyOfMyQuestion = {...myQuestion};
-        copyOfMyQuestion.answers.splice(indexOfAnswer,1);   
+        const indexOfAnswer = copyOfMyQuestion.answers.findIndex(a => a.answerID === answerID);
+        copyOfMyQuestion.answers.splice(indexOfAnswer,1);
         console.log(copyOfMyQuestion);
         
         setQuestion(copyOfMyQuestion);  
@@ -77,8 +80,7 @@ const QuestionBuilder: FunctionComponent<QuestionBuilderProps> = ({questionNumbe
         setQuestion(copyOfNewQuestion);
         onQuestionUpdated(copyOfNewQuestion);
         
-    }
-    
+    }    
 
     return (
         <div>
@@ -90,12 +92,13 @@ const QuestionBuilder: FunctionComponent<QuestionBuilderProps> = ({questionNumbe
             <input type="checkbox" onChange={e => questionNumAnswersChanged(e)}></input>
             {
                 myQuestion.answers.map((a, index) => (
+                    
                     <AnswerBuilder
-                     key={a.AnswerID} 
+                     key={a.answerID} 
                      answerNumber={index+1} 
                      onAnswerUpdated={(answer: IAnswer) => onAnswerUpdated(answer, index)}
-                     removeAnswer={() => removeAnswer(index)}
-                     initialAnswerValue={a} 
+                     removeAnswer={(answerNumber: number) => removeAnswer(a.answerID)}
+                     initialAnswerValue={a}                      
                      />         
                 ))
             }

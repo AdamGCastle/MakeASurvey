@@ -14,8 +14,8 @@ interface IRemoveAnswerFunction{
 
 interface AnswerBuilderProps{
     answerNumber: number,
-    onAnswerUpdated: IAnswerUpdatedFunction
-    removeAnswer: IRemoveAnswerFunction
+    onAnswerUpdated: IAnswerUpdatedFunction,
+    removeAnswer: IRemoveAnswerFunction,   
     initialAnswerValue: IAnswer
     
 }
@@ -36,10 +36,10 @@ const AnswerBuilder: FunctionComponent<AnswerBuilderProps> = ({ answerNumber, on
     return (
         
         <div>
-            Enter answer {answerNumber}:
+            Enter answer {answerNumber}, answer ID is {myAnswer.answerID}, answer text is {}:
             <input type="text" id={'a' + answerNumber} value = {myAnswer.text} onChange={answerTextChanged} />
             <br/>
-            <div><button onClick={() => removeAnswer(answerNumber)}>Remove Answer</button></div>
+            <div><button onClick={() => removeAnswer(myAnswer.answerID)}>Remove Answer</button></div>
         </div>
     )
 

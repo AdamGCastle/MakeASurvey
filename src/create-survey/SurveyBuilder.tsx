@@ -26,16 +26,16 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
     }
 
     const addQuestion = () => {
-                            console.log(mySurvey);
+                            // console.log(mySurvey);
         const copyOfMySurvey = {...mySurvey};
         const numberInSurvey = copyOfMySurvey.questions.length +1;
-        copyOfMySurvey.questions.push({QuestionID: v4(), text: '', answers: [], IsMultipleChoice: false, numberInSurvey: numberInSurvey});
+        copyOfMySurvey.questions.push({questionID: Math.random(), text: '', answers: [], IsMultipleChoice: false, numberInSurvey: numberInSurvey});
         
         setSurvey(copyOfMySurvey);
     }
 
     const removeQuestion = (questionNum: number) => {
-
+        console.log("Question number to splice is " + questionNum)
         const indexOfQuestion = questionNum;
         const copyOfMySurvey = {...mySurvey};
         copyOfMySurvey.questions.splice(indexOfQuestion,1);   
@@ -84,8 +84,7 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
             // const data = await response.json();           
 
         }
-        navigate("/"); 
-        
+        navigate("/");        
 
     }
 
@@ -96,12 +95,12 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
             <label>Name of Survey:  </label>
             <input type="text" onChange={surveyNameChanged} value={mySurvey.name}></input>
             <br></br>
-            <p>{surveyJson}</p>
+            {/* <p>{surveyJson}</p> */}
             <br/>
             {
                 mySurvey.questions.map((q, index) => (
                     <QuestionBuilder 
-                    key={q.QuestionID} 
+                    key={q.questionID} 
                     questionNumber={index+1}
                     onQuestionUpdated={(question: IQuestion) => onQuestionUpdated(question, index)}
                     removeQuestion={(questionNum: number) => removeQuestion(index)}
