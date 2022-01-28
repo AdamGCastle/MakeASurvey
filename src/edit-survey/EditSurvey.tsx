@@ -36,9 +36,10 @@ const EditSurvey: FunctionComponent = () => {
           const response = await fetch('https://localhost:44322/api/Surveys/' + id)
   
           if(!response.ok) {
-              throw new Error("Couldnt connect to the database.")
+              throw new Error("Couldn't connect to the database.")
           }
-          const data = await response.json();  
+          const data = await response.json(); 
+          console.log(data) 
   
         //   const transformedData = data.map( (item: { name: string, surveyID: number }) => { return { name: item.name, surveyID: item.surveyID }});
             
@@ -79,7 +80,6 @@ const EditSurvey: FunctionComponent = () => {
         
         }
     }
-
     const cancel = () => {        
         setShowDeleteDialogue(false);
     }

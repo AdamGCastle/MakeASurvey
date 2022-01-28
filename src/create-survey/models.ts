@@ -8,7 +8,7 @@ export interface IQuestion{
     questionID: number;
     text: string
     answers: IAnswer[]
-    IsMultipleChoice: boolean;
+    isMultipleChoice: boolean;
     numberInSurvey: number
 }
 

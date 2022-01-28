@@ -43,7 +43,7 @@ const QuestionBuilder: FunctionComponent<QuestionBuilderProps> = ({questionNumbe
         const copyOfMyQuestion = { ...myQuestion};  
         // console.log(copyOfMyQuestion.text)
         
-        copyOfMyQuestion.IsMultipleChoice = e.target.checked;
+        copyOfMyQuestion.isMultipleChoice = e.target.checked;
         setQuestion(copyOfMyQuestion);
         
         onQuestionUpdated(copyOfMyQuestion);  
@@ -89,7 +89,7 @@ const QuestionBuilder: FunctionComponent<QuestionBuilderProps> = ({questionNumbe
             <br></br>
             <br></br>
             <label>Enable users to select multiple answers: </label>
-            <input type="checkbox" onChange={e => questionNumAnswersChanged(e)}></input>
+            <input type="checkbox" defaultChecked={myQuestion.isMultipleChoice} onChange={e => questionNumAnswersChanged(e)}></input>
             {
                 myQuestion.answers.map((a, index) => (
                     

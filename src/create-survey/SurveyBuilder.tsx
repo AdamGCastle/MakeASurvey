@@ -29,7 +29,7 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
                             // console.log(mySurvey);
         const copyOfMySurvey = {...mySurvey};
         const numberInSurvey = copyOfMySurvey.questions.length +1;
-        copyOfMySurvey.questions.push({questionID: Math.random(), text: '', answers: [], IsMultipleChoice: false, numberInSurvey: numberInSurvey});
+        copyOfMySurvey.questions.push({questionID: Math.random(), text: '', answers: [], isMultipleChoice: false, numberInSurvey: numberInSurvey});
         
         setSurvey(copyOfMySurvey);
     }
