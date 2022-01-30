@@ -33,7 +33,7 @@ const EditSurvey: FunctionComponent = () => {
         }
         try{
           setIsLoading(true);
-          const response = await fetch('https://localhost:44322/api/Surveys/' + id)
+          const response = await fetch('https://acsurvey.azurewebsites.net/api/Surveys/' + id)
   
           if(!response.ok) {
               throw new Error("Couldn't connect to the database.")
@@ -64,7 +64,7 @@ const EditSurvey: FunctionComponent = () => {
         //return to home page
 
         try{
-            const response = await fetch('https://localhost:44322/api/Surveys/' + id, {
+            const response = await fetch('https://acsurvey.azurewebsites.net/api/Surveys/' + id, {
                 method: 'DELETE'
             })
   

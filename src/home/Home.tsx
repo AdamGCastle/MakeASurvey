@@ -15,7 +15,7 @@ const Home = () => {
   const getSurveys = useCallback(async () => {
       try{
         setIsLoading(true);
-        const response = await fetch('https://localhost:44322/api/Surveys')
+        const response = await fetch('https://acsurvey.azurewebsites.net/api/Surveys')
 
         if(!response.ok) {
             throw new Error("Couldnt connect to the database.")
