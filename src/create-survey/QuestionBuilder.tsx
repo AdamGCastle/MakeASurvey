@@ -2,6 +2,7 @@ import { ChangeEvent, FunctionComponent } from "react";
 import { useState } from "react";
 import AnswerBuilder from "./AnswerBuilder"
 import { IQuestion, IAnswer } from "./models";
+
 import { v4 } from "uuid";
 
 
@@ -83,13 +84,13 @@ const QuestionBuilder: FunctionComponent<QuestionBuilderProps> = ({questionNumbe
     }    
 
     return (
-        <div>
-            Enter question {questionNumber}:
-            <input type="text" id={'q' + questionNumber} onChange={questionTextChanged} value={myQuestion.text}/>
+        <div className="indent">
+            <strong>Question {questionNumber}: </strong>
+            <input type="text" className="textbox" id={'q' + questionNumber} onChange={questionTextChanged} value={myQuestion.text}/>
             <br></br>
-            <br></br>
-            <label>Enable users to select multiple answers: </label>
-            <input type="checkbox" defaultChecked={myQuestion.isMultipleChoice} onChange={e => questionNumAnswersChanged(e)}></input>
+            
+            
+            <p></p>
             {
                 myQuestion.answers.map((a, index) => (
                     
@@ -104,8 +105,13 @@ const QuestionBuilder: FunctionComponent<QuestionBuilderProps> = ({questionNumbe
             }
             <br></br>
             
-            <div><button onClick={() => addAnswer()}>Add Answer</button></div>
-            <div> <button onClick={() => removeQuestion(questionNumber)}>Remove Question</button></div>
+            <div><button id="addButton" onClick={() => addAnswer()}>Add Answer</button></div>
+            <br></br>
+            <label>Let users select multiple answers: </label>
+            <input type="checkbox" defaultChecked={myQuestion.isMultipleChoice} onChange={e => questionNumAnswersChanged(e)}></input>
+            <br></br>
+            <br></br>
+            <button id="removeButton" onClick={() => removeQuestion(questionNumber)}>Remove Question</button>
             <br/>
             <br/>
         </div>

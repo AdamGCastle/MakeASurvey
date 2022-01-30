@@ -35,11 +35,12 @@ const AnswerBuilder: FunctionComponent<AnswerBuilderProps> = ({ answerNumber, on
 
     return (
         
-        <div>
-            Enter answer {answerNumber}, answer ID is {myAnswer.answerID}, answer text is {}:
-            <input type="text" id={'a' + answerNumber} value = {myAnswer.text} onChange={answerTextChanged} />
-            <br/>
-            <div><button onClick={() => removeAnswer(myAnswer.answerID)}>Remove Answer</button></div>
+        <div className="indent">
+            Answer {answerNumber}  :<span>   </span>
+            <input type="text" className="textbox" id={'a' + answerNumber} value = {myAnswer.text} onChange={answerTextChanged} />
+            
+            <div><button id="removeButton" onClick={() => removeAnswer(myAnswer.answerID)}>Remove Answer</button></div>
+            <br></br>
         </div>
     )
 

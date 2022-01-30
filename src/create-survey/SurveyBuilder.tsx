@@ -3,7 +3,8 @@ import QuestionBuilder from "./QuestionBuilder";
 import { ChangeEvent } from "react";
 import { IQuestion, ISurvey } from "./models";
 import { useNavigate } from "react-router-dom";
-import { v4 } from "uuid";
+import '../App.css';
+
 
 
 interface SurveyBuilderProps{       
@@ -90,10 +91,10 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
 
     return (
         
-        <div>
+        <div className="indent">
             
-            <label>Name of Survey:  </label>
-            <input type="text" onChange={surveyNameChanged} value={mySurvey.name}></input>
+            <label><strong>Name of Survey:  </strong></label>
+            <input placeholder="Name"  type="text" onChange={surveyNameChanged} value={mySurvey.name}></input>
             <br></br>
             {/* <p>{surveyJson}</p> */}
             <br/>
@@ -110,9 +111,10 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
                 ))
             }
 
-            <button onClick={() => addQuestion()}>Add Question</button>
-           
-            <button onClick={() => submitSurvey()}>Submit</button>
+            <button id="addButton" onClick={() => addQuestion()}>Add Question</button>
+           <br></br>
+           <br></br>
+            <button id="blueButton" onClick={() => submitSurvey()}>Submit Survey</button>
         </div>
     )
 }

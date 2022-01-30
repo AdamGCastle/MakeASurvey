@@ -12,15 +12,24 @@ export default function App() {
   return (    
     
     <main>
-      <div className="container ml-3">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={Home()} />
-          <Route path="/createsurvey" element={CreateSurvey()} />
-          <Route path="/editsurvey/:id" element={<EditSurvey />}/>
-          <Route path="/editsurveys" element={<EditSelect />}/>
-          <Route path="*" element = {NotFound()} />
-        </Routes>
+      <div className="main">       
+          <Navbar />
+         
+         <div className="card">
+
+         
+          <Routes>
+            <Route path="/" element={Home()} />
+            <Route path="/createsurvey" element={CreateSurvey()} />
+            <Route path="/editsurvey/:id" element={<EditSurvey />}/>
+            <Route path="/editsurveys" element={<EditSelect />}/>
+            <Route path="*" element = {NotFound()} />
+          </Routes>
+
+         </div>
+
+        
+        
       </div>      
     </main>    
    
@@ -29,7 +38,7 @@ export default function App() {
 
 function Navbar() {
   return (
-  <nav>
+  <nav className='nav'>
     <NavLink to="/"> Home | </NavLink>
     <NavLink to="/createsurvey"> Create a Survey | </NavLink>
     <NavLink to ="/editsurveys"> Edit a Survey </NavLink>

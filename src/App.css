@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: cadetblue;
 }
 
 .App-logo {
@@ -26,6 +27,62 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.main {
+  background-color: cadetblue;
+}
+
+.nav {
+  background-color: white;
+  font-size: 2em;
+  margin: auto;
+  padding: 1%;
+}
+
+.card {
+  background-color: white;
+  margin-top: 2%;
+  margin-left: 20%;
+  margin-right: 20%;
+  border-radius: 0.25rem;
+  word-wrap: break-word;
+  padding: 1%;
+  font-size: large;
+  
+}
+
+.indent {
+  margin-left: 40px;
+}
+
+.textbox {  
+  
+  width: 60%;
+
+}
+
+#addButton {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+  border-radius: 0.25rem;
+
+}
+
+#removeButton {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+  border-radius: 0.25rem;
+}
+
+#blueButton {
+  color: #fff;
+  background-color: blue;
+  border-color: blue;
+  border-radius: 0.25rem;
+
 }
 
 @keyframes App-logo-spin {
