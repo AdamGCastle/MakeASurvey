@@ -64,23 +64,23 @@
 
 #addButton {
   color: #fff;
-  background-color: #28a745;
-  border-color: #28a745;
+  background-color: #088f27;
+  border-color: #088f27;
   border-radius: 0.25rem;
 
 }
 
 #removeButton {
   color: #fff;
-  background-color: #dc3545;
-  border-color: #dc3545;
+  background-color: #a1101f;
+  border-color: #a1101f;
   border-radius: 0.25rem;
 }
 
 #blueButton {
   color: #fff;
-  background-color: blue;
-  border-color: blue;
+  background-color: rgb(0, 119, 255);
+  border-color: rgb(0, 119, 255);
   border-radius: 0.25rem;
 
 }
