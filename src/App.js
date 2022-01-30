@@ -1,6 +1,6 @@
 
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, NavLink} from "react-router-dom";
+import { BrowserRouter as Routes, Route, NavLink} from "react-router-dom";
 import Home from './home/Home';
 import CreateSurvey from './create-survey/CreateSurvey';
 import EditSurvey from './edit-survey/EditSurvey';
