@@ -1,6 +1,6 @@
 
 import './App.css';
-import { BrowserRouter as Routes, Route, NavLink} from "react-router-dom";
+import { Routes, Route, NavLink} from "react-router-dom";
 import Home from './home/Home';
 import CreateSurvey from './create-survey/CreateSurvey';
 import EditSurvey from './edit-survey/EditSurvey';
@@ -9,26 +9,18 @@ import EditSelect from './home/EditSelect';
 
 
 export default function App() {
-  return (    
+  return (      
     
-    <main>
-      <div className="main">       
-          <Navbar />
-         
-         <div className="card">
-
-         
+    <main>          
+      <Navbar />    
+      <div className="card">                        
           <Routes>
             <Route path="/" element={Home()} />
             <Route path="/createsurvey" element={CreateSurvey()} />
             <Route path="/editsurvey/:id" element={<EditSurvey />}/>
             <Route path="/editsurveys" element={<EditSelect />}/>
             <Route path="*" element = {NotFound()} />
-          </Routes>
-
-         </div>
-
-        
+          </Routes>          
         
       </div>      
     </main>    

@@ -1,44 +1,43 @@
 
-import { useState, useEffect, useCallback } from "react";
+// import { useState, useEffect, useCallback } from "react";
 import {Link } from 'react-router-dom';
-import EditSurvey from "../edit-survey/EditSurvey";
 import EditSelect from "./EditSelect";
 
 const Home = () => {
-
-  const [surveys, setSurveys] = useState([{name: '', surveyID: null }])
-  const [isLoading, setIsLoading] = useState(false);  
-  const [error, setError] = useState(null);
+  // const [surveys, setSurveys] = useState([{name: '', surveyID: null }])
+  // const [isLoading, setIsLoading] = useState(false);  
+  // const [error, setError] = useState(null);
 
   
   
-  const getSurveys = useCallback(async () => {
-      try{
-        setIsLoading(true);
-        const response = await fetch('https://acsurvey.azurewebsites.net/api/Surveys')
+  // const getSurveys = useCallback(async () => {
+  //     try{
+  //       setIsLoading(true);
+  //       console.log(isLoading);
+  //       const response = await fetch('https://acsurvey.azurewebsites.net/api/Surveys')
 
-        if(!response.ok) {
-            throw new Error("Couldnt connect to the database.")
-        }
-        const data = await response.json();  
+  //       if(!response.ok) {
+  //           throw new Error("Couldnt connect to the database.")
+  //       }
+  //       const data = await response.json();  
 
-        const transformedData = data.map( (item: { name: string, surveyID: number }) => { return { name: item.name, surveyID: item.surveyID }});
+  //       const transformedData = data.map( (item: { name: string, surveyID: number }) => { return { name: item.name, surveyID: item.surveyID }});
           
-          setSurveys(transformedData)
-          setIsLoading(false);
+  //         setSurveys(transformedData)
+  //         setIsLoading(false);
 
-      } catch(error: any) {
-          setError(error.message);
+  //     } catch(error: any) {
+  //         setError(error.message);
 
-      }
-      setIsLoading(false);
+  //     }
+  //     setIsLoading(false);
     
       
-  }, []);
+  // }, []);
 
-  useEffect(() => {
-      getSurveys()
-  }, [getSurveys]);
+  // useEffect(() => {
+  //     getSurveys()
+  // }, [getSurveys]);
   
   return (
     <div>

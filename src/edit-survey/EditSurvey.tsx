@@ -1,10 +1,10 @@
 import SurveyBuilder from "../create-survey/SurveyBuilder";
 import { ISurvey } from "../create-survey/models";
 import { FunctionComponent, useState, useCallback, useEffect } from "react";
-import { NavigationType, useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams} from "react-router-dom";
 import NotFound from "../home/NotFound";
 import DeleteSurvey from "./DeleteSurvey";
-import  { Navigate } from 'react-router-dom'
+
 
 
 
@@ -24,8 +24,7 @@ const EditSurvey: FunctionComponent = () => {
     const navigate = useNavigate();
 
 
-    const getSurvey = useCallback(async () => {
-        
+    const getSurvey = useCallback(async () => {        
 
         if(id === null) {
             console.log(`no id parameter`)
@@ -53,7 +52,7 @@ const EditSurvey: FunctionComponent = () => {
         setIsLoading(false);
       
         
-    }, []);
+    }, [id]);
 
     useEffect(() => {
         getSurvey()

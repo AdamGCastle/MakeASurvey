@@ -38,12 +38,12 @@ const EditSelect: FunctionComponent = () => {
 
     return (
         <div>
-            <h4> Edit a Survey</h4>      
+            <h1>Edit a Survey</h1>      
 
         <div>
         {!isLoading && surveys.length > 0 && surveys.map(s => 
         <div>
-            <h4></h4>
+            
             <span key={s.surveyID}>{s.name} </span>
             <Link to={`/editsurvey/${s.surveyID}`}>
             <button>Edit</button>

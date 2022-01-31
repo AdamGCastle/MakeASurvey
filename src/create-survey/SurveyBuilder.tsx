@@ -68,6 +68,7 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
             
             headers: {'Content-Type': 'application/json'}
             })
+            console.log(response);
 
             //Nor does this one
             //headers: {'Access-Control-Allow-Origin': '*'}    
