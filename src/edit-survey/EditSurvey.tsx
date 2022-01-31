@@ -7,13 +7,6 @@ import DeleteSurvey from "./DeleteSurvey";
 
 
 
-
-
-// interface EditSurveyProps{
-//     surveyID: number;
-// }
-
-
 const EditSurvey: FunctionComponent = () => {
 
     const { id } = useParams();
