@@ -9,7 +9,7 @@ const Home = () => {
     <div>
 
       <div className="alignCentre">    
-        <h1>Welcome to MakeASurvey!</h1>
+        <h1>Welcome to MakeASurvey</h1>
 
         <p>Create your very own survey and see which answers everyone picks!</p>    
           
