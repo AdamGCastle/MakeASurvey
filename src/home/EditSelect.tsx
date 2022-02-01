@@ -38,7 +38,7 @@ const EditSelect: FunctionComponent = () => {
 
     return (
         <div>
-            <h1>Edit a Survey</h1>      
+            <h3>Edit a Survey</h3>      
 
         <div>
         {!isLoading && surveys.length > 0 && surveys.map(s => 
