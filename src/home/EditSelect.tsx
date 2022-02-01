@@ -49,7 +49,7 @@ const EditSelect: FunctionComponent = () => {
             <Link to={`/editsurvey/${s.surveyID}`}>
             <button className="editButton">Edit</button>
             </Link>
-            
+            <br/>
             <br/>
         </div>        
             
