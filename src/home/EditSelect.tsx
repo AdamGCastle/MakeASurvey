@@ -8,6 +8,7 @@ const EditSelect: FunctionComponent = () => {
     const [isLoading, setIsLoading] = useState(false);  
     const [error, setError] = useState(null);
 
+
     const getSurveys = useCallback(async () => {
         try{
         setIsLoading(true);
@@ -38,15 +39,15 @@ const EditSelect: FunctionComponent = () => {
 
     return (
         <div>
-            <h3>Edit a Survey</h3>      
+            <h4>Edit an existing survey</h4>      
 
         <div>
-        {!isLoading && surveys.length > 0 && surveys.map(s => 
-        <div>
+        {!isLoading && surveys.length > 0 && surveys[0].surveyID!= null && surveys.map(s => 
+        <div >
             
             <span key={s.surveyID}>{s.name} </span>
             <Link to={`/editsurvey/${s.surveyID}`}>
-            <button>Edit</button>
+            <button className="editButton">Edit</button>
             </Link>
         </div>        
             

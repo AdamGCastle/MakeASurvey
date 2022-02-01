@@ -11,8 +11,8 @@ const CreateSurvey: FunctionComponent = () => {
     // console.log(emptySurvey)
     return (
         <div>
-            <h1> Welcome to Make a Survey!</h1>            
-            <p>Enter the name of your survey, fill in the questions and answers then hit submit!</p>
+            <h1 className="alignCentre"> Welcome to Make a Survey!</h1>            
+            <p>Enter the name of your survey, fill in the questions and answers, then hit submit!</p>
             <br></br>
             < SurveyBuilder initialSurveyValue={emptySurvey}/>
         </div>

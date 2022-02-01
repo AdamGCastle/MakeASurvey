@@ -56,11 +56,22 @@
   margin-left: 40px;
 }
 
+
 .textbox {  
   
   width: 60%;
 
 }
+
+.editButton{
+  float:right;
+  margin-right:20%;  
+}
+
+.alignCentre{
+  text-align: center;
+}
+
 
 #addButton {
   color: #fff;
@@ -84,6 +95,20 @@
   border-radius: 0.25rem;
 
 }
+
+#createButton {
+  float: center;    
+  height: 4rem;
+  font-size: large;
+  border-width: 2px;
+  border-radius: 0.75rem;  
+}
+
+
+
+
+
+
 
 @keyframes App-logo-spin {
   from {

@@ -7,18 +7,21 @@ const Home = () => {
   
   return (
     <div>
-    
-      <h1>Welcome to the Home Page!</h1>
 
-      <p>You can either edit an existing survey, or create a new one!</p>
+      <div className="alignCentre">    
+        <h1>Welcome to MakeASurvey!</h1>
 
-      <Link to="/createsurvey">
-        <button >Create a New Survey!</button>
-      </Link>   
+        <p>Create your very own survey and see which answers everyone picks!</p>    
+          
+          <Link to="/createsurvey">
+            <button btn-large id="createButton">Make a New Survey!</button>
+          </Link>  
+        </div>
+         
+            
       <EditSelect />   
 
-    </div> 
-  
+    </div>   
   )
 
 };
