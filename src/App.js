@@ -31,9 +31,9 @@ export default function App() {
 function Navbar() {
   return (
   <nav className='nav'>
-    <NavLink to="/"> Home | </NavLink>
-    <NavLink to="/createsurvey"> Create a Survey | </NavLink>
-    <NavLink to ="/editsurveys"> Edit a Survey </NavLink>
+    <NavLink to="/"> ___Home___|___   </NavLink>
+    <NavLink to="/createsurvey"> Create a Survey___|___   </NavLink>
+    <NavLink to ="/editsurveys">   Edit a Survey___ </NavLink>
   </nav>
   )
 }

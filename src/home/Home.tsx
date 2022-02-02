@@ -14,7 +14,7 @@ const Home = () => {
         <p>Create your very own survey and see which answers everyone picks!</p>    
           
           <Link to="/createsurvey">
-            <button btn-large id="createButton">Make a New Survey!</button>
+            <button btn-large id="createButton" className="button">Make a New Survey!</button>
           </Link>  
         </div>
          

@@ -86,7 +86,7 @@ const QuestionBuilder: FunctionComponent<QuestionBuilderProps> = ({questionNumbe
     return (
         <div className="indent">
             <strong>Question {questionNumber}: </strong>
-            <input type="text" className="textbox" id={'q' + questionNumber} onChange={questionTextChanged} value={myQuestion.text}/>
+            <input type="text" placeholder="Enter question" className="bigtextbox" id={'q' + questionNumber} onChange={questionTextChanged} value={myQuestion.text}/>
             <br></br>
             
             
@@ -105,13 +105,13 @@ const QuestionBuilder: FunctionComponent<QuestionBuilderProps> = ({questionNumbe
             }
             <br></br>
             
-            <div><button id="addButton" onClick={() => addAnswer()}>Add Answer</button></div>
+            <div><button id="addButton" className="button" onClick={() => addAnswer()}>Add Answer</button></div>
             <br></br>
             <label>Let users select multiple answers: </label>
-            <input type="checkbox" defaultChecked={myQuestion.isMultipleChoice} onChange={e => questionNumAnswersChanged(e)}></input>
+            <input type="checkbox" className="button" defaultChecked={myQuestion.isMultipleChoice} onChange={e => questionNumAnswersChanged(e)}></input>
             <br></br>
             <br></br>
-            <button id="removeButton" onClick={() => removeQuestion(questionNumber)}>Remove Question</button>
+            <button id="removeButton" className="button" onClick={() => removeQuestion(questionNumber)}>Remove Question</button>
             <br/>
             <br/>
         </div>

@@ -92,31 +92,37 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
 
     return (
         
-        <div className="indent">
-            
-            <label><strong>Name of Survey:  </strong></label>
-            <input placeholder="Name"  type="text" onChange={surveyNameChanged} value={mySurvey.name}></input>
-            <br></br>
-            {/* <p>{surveyJson}</p> */}
-            <br/>
-            {
-                mySurvey.questions.map((q, index) => (
-                    <QuestionBuilder 
-                    key={q.questionID} 
-                    questionNumber={index+1}
-                    onQuestionUpdated={(question: IQuestion) => onQuestionUpdated(question, index)}
-                    removeQuestion={(questionNum: number) => removeQuestion(index)}
-                    initialQuestionValue={q}
-                    />     
-                    
-                ))
-            }
+        <div>
+            <div className="indent">                
+                <label><strong>Name of Survey:  </strong></label>
+                <input placeholder="Enter the name of your survey" className="medtextbox" type="text" onChange={surveyNameChanged} value={mySurvey.name}></input>
+                <br></br>
+                {/* <p>{surveyJson}</p> */}
+                <br/>
+                {
+                    mySurvey.questions.map((q, index) => (
+                        <QuestionBuilder 
+                        key={q.questionID} 
+                        questionNumber={index+1}
+                        onQuestionUpdated={(question: IQuestion) => onQuestionUpdated(question, index)}
+                        removeQuestion={(questionNum: number) => removeQuestion(index)}
+                        initialQuestionValue={q}
+                        />     
+                        
+                    ))
+                }
 
-            <button id="addButton" onClick={() => addQuestion()}>Add Question</button>
-           <br></br>
-           <br></br>
-            <button id="blueButton" onClick={() => submitSurvey()}>Submit Survey</button>
+                <button id="addButton" className="button" onClick={() => addQuestion()}>Add Question</button>
+                <br></br>
+                <br></br>  
+                </div>  
+                <div className="alignCentre">
+                    <button id="blueButton" className="button" onClick={() => submitSurvey()}>Submit Survey</button> 
+                </div>            
+                      
+            
         </div>
+        
     )
 }
 

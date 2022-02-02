@@ -47,7 +47,7 @@ const EditSelect: FunctionComponent = () => {
             
             <span key={s.surveyID}>{s.name} </span>
             <Link to={`/editsurvey/${s.surveyID}`}>
-            <button className="editButton">Edit</button>
+            <button id="editButton" className="button">Edit</button>
             </Link>
             <br/>
             <br/>

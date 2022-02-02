@@ -37,9 +37,9 @@ const AnswerBuilder: FunctionComponent<AnswerBuilderProps> = ({ answerNumber, on
         
         <div className="indent">
             Answer {answerNumber}  :<span>   </span>
-            <input type="text" className="textbox" id={'a' + answerNumber} value = {myAnswer.text} onChange={answerTextChanged} />
+            <input type="text" placeholder="Enter answer" className="bigtextbox" id={'a' + answerNumber} value = {myAnswer.text} onChange={answerTextChanged} />
             
-            <div><button id="removeButton" onClick={() => removeAnswer(myAnswer.answerID)}>Remove Answer</button></div>
+            <div><button id="removeButton" className="button" onClick={() => removeAnswer(myAnswer.answerID)}>Remove Answer</button></div>
             <br></br>
         </div>
     )
