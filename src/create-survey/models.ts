@@ -9,12 +9,12 @@ export interface IQuestion{
     text: string
     answers: IAnswer[]
     isMultipleChoice: boolean;
-    numberInSurvey: number
+    // numberInSurvey: number
 }
 
 export interface IAnswer{
     text: string
     answerID: number;
-    answerNumber: number;
+    // answerNumber: number;
 
 }

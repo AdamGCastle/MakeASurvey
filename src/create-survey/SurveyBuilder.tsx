@@ -15,6 +15,8 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
 
     const [mySurvey, setSurvey] = useState<ISurvey>(initialSurveyValue);
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false); 
+    const [error, setError] = useState(null);
     
     const surveyNameChanged = (elem: ChangeEvent<HTMLInputElement>) => {
         
@@ -23,14 +25,14 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
         copyOfMySurvey.name = value;
         setSurvey(copyOfMySurvey);
         
+        
         // console.log(mySurvey);
     }
 
     const addQuestion = () => {
                             // console.log(mySurvey);
-        const copyOfMySurvey = {...mySurvey};
-        const numberInSurvey = copyOfMySurvey.questions.length +1;
-        copyOfMySurvey.questions.push({questionID: Math.random(), text: '', answers: [], isMultipleChoice: false, numberInSurvey: numberInSurvey});
+        const copyOfMySurvey = {...mySurvey};        
+        copyOfMySurvey.questions.push({questionID: Math.random(), text: '', answers: [], isMultipleChoice: false});
         
         setSurvey(copyOfMySurvey);
     }
@@ -44,7 +46,6 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
         setSurvey(copyOfMySurvey);           
 
     }
-
     
     const onQuestionUpdated = (question: IQuestion, index: number) => {    
         
@@ -54,21 +55,40 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
         setSurvey(copyOfMySurvey);        
         // console.log(copyOfMySurvey)
     }
-   
-
-    
-
+ 
     const submitSurvey = async () => {
-        
+
+               
+        mySurvey.questions.forEach(q => {
+            q.questionID = q.questionID < 1 ? 0 : q.questionID;
+            q.answers.forEach(a => {                
+                a.answerID = a.answerID < 1 ? 0 : a.answerID;                              
+            });            
+        });
+
         if(mySurvey.surveyID === 0){
+            
+            try{
+                setIsLoading(true);
             console.log('New Survey to Create. Send to api: ' + JSON.stringify(mySurvey));
-            const response = await fetch('https://acsurvey.azurewebsites.net/api/surveys', { 
+            const response = await fetch('https://acsurvey.azurewebsites.net/api/Surveys', { 
             method: 'POST',
             body: JSON.stringify(mySurvey),
             
             headers: {'Content-Type': 'application/json'}
             })
             console.log(response);
+            if(!response.ok) {
+                throw new Error("Couldn't connect to the database.")
+            }
+            setIsLoading(false);
+  
+        } catch(error: any) {
+            setError(error.message);
+  
+        }
+        setIsLoading(false);
+
 
             //Nor does this one
             //headers: {'Access-Control-Allow-Origin': '*'}    
@@ -77,7 +97,7 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
         
         } else {
             console.log(`This isn't a new survey, it's one that's in the process of being updated, so I'm sending a put request not a post request. Send to API ${JSON.stringify(mySurvey)}`);
-            const response = await fetch('https://acsurvey.azurewebsites.net/api/surveys/' + mySurvey.surveyID, { 
+            const response = await fetch('https://acsurvey.azurewebsites.net/api/Surveys' + mySurvey.surveyID, { 
             method: 'PUT',
             body: JSON.stringify(mySurvey),            
             headers: {'Content-Type': 'application/json'}
@@ -93,34 +113,39 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
     return (
         
         <div>
-            <div className="indent">                
-                <label><strong>Name of Survey:  </strong></label>
-                <input placeholder="Enter the name of your survey" className="medtextbox" type="text" onChange={surveyNameChanged} value={mySurvey.name}></input>
-                <br></br>
-                {/* <p>{surveyJson}</p> */}
-                <br/>
-                {
-                    mySurvey.questions.map((q, index) => (
-                        <QuestionBuilder 
-                        key={q.questionID} 
-                        questionNumber={index+1}
-                        onQuestionUpdated={(question: IQuestion) => onQuestionUpdated(question, index)}
-                        removeQuestion={(questionNum: number) => removeQuestion(index)}
-                        initialQuestionValue={q}
-                        />     
-                        
-                    ))
-                }
+            {!isLoading && <div>
+                <div className="indent">                
+                    <label><strong>Name of Survey:  </strong></label>
+                    <input placeholder="Enter the name of your survey" className="medtextbox" type="text" onChange={surveyNameChanged} value={mySurvey.name}></input>
+                    <br></br>
+                    {/* <p>{surveyJson}</p> */}
+                    <br/>
+                    {
+                        mySurvey.questions.map((q, index) => (
+                            <QuestionBuilder 
+                            key={q.questionID} 
+                            questionNumber={index+1}
+                            onQuestionUpdated={(question: IQuestion) => onQuestionUpdated(question, index)}
+                            removeQuestion={(questionNum: number) => removeQuestion(index)}
+                            initialQuestionValue={q}
+                            />     
+                            
+                        ))
+                    }
 
-                <button id="addButton" className="button" onClick={() => addQuestion()}>Add Question</button>
-                <br></br>
-                <br></br>  
+                    <button id="addButton" className="button" onClick={() => addQuestion()}>Add Question</button>
+                    <br></br>
+                    <br></br>  
                 </div>  
                 <div className="alignCentre">
                     <button id="blueButton" className="button" onClick={() => submitSurvey()}>Submit Survey</button> 
                 </div>            
-                      
-            
+                        
+            </div>}
+            {isLoading &&<div>
+                <p>Loading...this may take a few seconds...</p>
+
+            </div>}
         </div>
         
     )

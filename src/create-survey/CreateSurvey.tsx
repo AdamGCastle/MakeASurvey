@@ -7,7 +7,7 @@ import {v4} from 'uuid'
 
 const CreateSurvey: FunctionComponent = () => {
 
-    const emptySurvey: ISurvey = { name : '', surveyID: 0, questions: [{questionID: parseInt(v4()), text: '', answers: [], isMultipleChoice: false, numberInSurvey: 1}] }
+    const emptySurvey: ISurvey = { name : '', surveyID: 0, questions: [{questionID: parseInt(v4()), text: '', answers: [], isMultipleChoice: false}] }
     // console.log(emptySurvey)
     return (
         <div>
