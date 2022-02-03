@@ -56,7 +56,7 @@ const EditSurvey: FunctionComponent = () => {
         //return to home page
 
         try{
-            const response = await fetch('https://acsurvey.azurewebsites.net/api/Surveys' + id, {
+            const response = await fetch('https://acsurvey.azurewebsites.net/api/Surveys/' + id, {
                 method: 'DELETE'
             })
   
