@@ -97,7 +97,7 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
         
         } else {
             console.log(`This isn't a new survey, it's one that's in the process of being updated, so I'm sending a put request not a post request. Send to API ${JSON.stringify(mySurvey)}`);
-            const response = await fetch('https://acsurvey.azurewebsites.net/api/Surveys' + mySurvey.surveyID, { 
+            const response = await fetch('https://acsurvey.azurewebsites.net/api/Surveys/' + mySurvey.surveyID, { 
             method: 'PUT',
             body: JSON.stringify(mySurvey),            
             headers: {'Content-Type': 'application/json'}
