@@ -139,7 +139,8 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
                 </div>  
                 <div className="alignCentre">
                     <button id="blueButton" className="button" onClick={() => submitSurvey()}>Submit Survey</button> 
-                </div>            
+                </div>   
+                <div>{error}</div>         
                         
             </div>}
             {isLoading &&<div>

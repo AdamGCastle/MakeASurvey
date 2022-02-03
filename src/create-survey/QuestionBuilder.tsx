@@ -54,7 +54,7 @@ const QuestionBuilder: FunctionComponent<QuestionBuilderProps> = ({questionNumbe
     const addAnswer = () => {
         
         const copyOfMyQuestion = {...myQuestion};
-        const ansNumber = copyOfMyQuestion.answers.length+1
+        // const ansNumber = copyOfMyQuestion.answers.length+1
         copyOfMyQuestion.answers.push({text: '', answerID: Math.random()});
         
         setQuestion(copyOfMyQuestion);
