@@ -16,7 +16,7 @@ export default function App() {
       <div className="card">                        
           <Routes>
             <Route path="/" element={Home()} />
-            <Route path="/createsurvey" element={CreateSurvey()} />
+            <Route path="/createsurvey/" element={CreateSurvey()} />
             <Route path="/editsurvey/:id" element={<EditSurvey />}/>
             <Route path="/editsurveys" element={<EditSelect />}/>
             <Route path="*" element = {NotFound()} />
