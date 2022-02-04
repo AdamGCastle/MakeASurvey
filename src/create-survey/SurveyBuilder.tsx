@@ -3,7 +3,9 @@ import QuestionBuilder from "./QuestionBuilder";
 import { ChangeEvent } from "react";
 import { IQuestion, ISurvey } from "./models";
 import { useNavigate } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 import '../App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
@@ -115,9 +117,9 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
         <div>
             {!isLoading && <div>
                 <div className="indent">                
-                    <label><strong>Name of Survey:  </strong></label>
+                    <strong> Name of Survey:  </strong>
                     <input placeholder="Enter the name of your survey" className="medtextbox" type="text" onChange={surveyNameChanged} value={mySurvey.name}></input>
-                    <br></br>
+                    
                     {/* <p>{surveyJson}</p> */}
                     <br/>
                     {
@@ -133,12 +135,13 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
                         ))
                     }
 
-                    <button id="addButton" className="button" onClick={() => addQuestion()}>Add Question</button>
-                    <br></br>
-                    <br></br>  
+                    <br/>
+                    <Button variant="success" className="addRemoveButton" onClick={() => addQuestion()}>Add Question</Button>
+                    <br/>
+                    <br/> 
                 </div>  
                 <div className="alignCentre">
-                    <button id="blueButton" className="button" onClick={() => submitSurvey()}>Submit Survey</button> 
+                    <Button variant="primary" onClick={() => submitSurvey()}>Submit Survey</Button> 
                 </div>   
                 <div>{error}</div>         
                         

@@ -2,6 +2,8 @@ import { ChangeEvent, FunctionComponent } from "react";
 import { useState } from "react";
 import AnswerBuilder from "./AnswerBuilder"
 import { IQuestion, IAnswer } from "./models";
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
@@ -84,36 +86,39 @@ const QuestionBuilder: FunctionComponent<QuestionBuilderProps> = ({questionNumbe
     }    
 
     return (
-        <div className="indent">
-            <strong>Question {questionNumber}: </strong>
-            <input type="text" placeholder="Enter question" className="bigtextbox" id={'q' + questionNumber} onChange={questionTextChanged} value={myQuestion.text}/>
+        <div >
             <br></br>
+            <div className="indent questionBox">
+                <strong>Question {questionNumber}: </strong>
+                <input type="text" placeholder="Enter question" className="bigtextbox" id={'q' + questionNumber} onChange={questionTextChanged} value={myQuestion.text}/>
+                <Button className="addRemoveButton" variant="danger" onClick={() => removeQuestion(questionNumber)}>Remove Question</Button>
+                <br></br>
+                <br></br>
+                <p></p>
+                {
+                    myQuestion.answers.map((a, index) => (
+                        
+                        <AnswerBuilder
+                        key={a.answerID} 
+                        answerNumber={index+1} 
+                        onAnswerUpdated={(answer: IAnswer) => onAnswerUpdated(answer, index)}
+                        removeAnswer={(answerNumber: number) => removeAnswer(a.answerID)}
+                        initialAnswerValue={a}                      
+                        />         
+                    ))
+                }
+                <br></br>
+                
+                <div><Button className="addRemoveButton" variant="success" onClick={() => addAnswer()}>Add Answer</Button></div>
+                <br></br>
+                <label>Let users select multiple answers: </label>
+                <input type="checkbox" className="button" id="checkbox" defaultChecked={myQuestion.isMultipleChoice} onChange={e => questionNumAnswersChanged(e)}></input>
+                
+                <br/>
+                <br/>
+
+            </div>
             
-            
-            <p></p>
-            {
-                myQuestion.answers.map((a, index) => (
-                    
-                    <AnswerBuilder
-                     key={a.answerID} 
-                     answerNumber={index+1} 
-                     onAnswerUpdated={(answer: IAnswer) => onAnswerUpdated(answer, index)}
-                     removeAnswer={(answerNumber: number) => removeAnswer(a.answerID)}
-                     initialAnswerValue={a}                      
-                     />         
-                ))
-            }
-            <br></br>
-            
-            <div><button id="addButton" className="button" onClick={() => addAnswer()}>Add Answer</button></div>
-            <br></br>
-            <label>Let users select multiple answers: </label>
-            <input type="checkbox" className="button" defaultChecked={myQuestion.isMultipleChoice} onChange={e => questionNumAnswersChanged(e)}></input>
-            <br></br>
-            <br></br>
-            <button id="removeButton" className="button" onClick={() => removeQuestion(questionNumber)}>Remove Question</button>
-            <br/>
-            <br/>
         </div>
     )
 }

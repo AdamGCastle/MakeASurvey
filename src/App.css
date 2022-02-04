@@ -1,3 +1,5 @@
+
+
 .App {
   text-align: center;
   background-color: cadetblue;
@@ -25,21 +27,42 @@
   color: white;
 }
 
+
+
+.questionBox{
+  border-style: solid;
+  border-radius: 1em;
+  border-color:darkgrey;
+  border-width: 1px;    
+  padding: 1em;
+  margin-right: 1em;
+  
+}
+
 .App-link {
   color: #61dafb;
 }
 
 .main {
-  background-color: cadetblue;
+  background-color: cadetblue;  
+  min-height: 100vh;
 }
 
 .nav {
-  /* font-weight: bold; */
+  font-weight: bold;
   text-align: center;
   background-color: white;
   font-size: 22px;
-  margin: auto;
-  padding: 1%;
+  margin: auto;  
+  padding: 6%;
+  
+}
+
+.editSelect{
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 50em;  
+  
 }
 
 .card {
@@ -68,9 +91,6 @@
 }
 
 
-
-
-
 .alignCentre{
   text-align: center;
 }
@@ -85,13 +105,10 @@
 
 }
 
-#addButton {
-  color: #fff;
-  background-color: #088f27;
-  border-color: #088f27;
-  border-radius: 0.25rem;
-
+.addRemoveButton {
+  margin-left: 3em;  
 }
+
 
 
 #blueButton {
@@ -116,11 +133,11 @@
   margin-right:70%;  
 }
 
-#removeButton {
-  color: #fff;
-  background-color: #a1101f;
-  border-color: #a1101f;
-  border-radius: 0.25rem;
+
+
+#checkbox{
+  margin-left: 5%;
+  
 }
 
 

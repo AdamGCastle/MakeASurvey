@@ -1,6 +1,7 @@
 import { ChangeEvent, FunctionComponent, useState } from "react";
 import { IAnswer } from "./models";
-
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface IAnswerUpdatedFunction{
     (updatedAnswer: IAnswer, 
@@ -35,12 +36,13 @@ const AnswerBuilder: FunctionComponent<AnswerBuilderProps> = ({ answerNumber, on
 
     return (
         
-        <div className="indent">
+        <div className="indent answerBox">
             Answer {answerNumber}  :<span>   </span>
             <input type="text" placeholder="Enter answer" className="bigtextbox" id={'a' + answerNumber} value = {myAnswer.text} onChange={answerTextChanged} />
-            
-            <div><button id="removeButton" className="button" onClick={() => removeAnswer(myAnswer.answerID)}>Remove Answer</button></div>
+            <Button className="addRemoveButton" variant="danger" size="sm" onClick={() => removeAnswer(myAnswer.answerID)}>Remove Answer</Button>
             <br></br>
+            <br></br>
+            
         </div>
     )
 

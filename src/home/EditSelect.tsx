@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback, FunctionComponent } from "react";
 import {Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button, Col, Container, Row } from "react-bootstrap";
 
 
 const EditSelect: FunctionComponent = () => {
@@ -39,19 +41,32 @@ const EditSelect: FunctionComponent = () => {
 
     return (
         <div>
-            <h4>Edit an existing survey</h4>      
-
-        <div>
-        {!isLoading && surveys.length > 0 && surveys[0].surveyID!= null && surveys.map(s => 
-        <div >
-            
-            <span key={s.surveyID}>{s.name} </span>
-            <Link to={`/editsurvey/${s.surveyID}`}>
-            <button id="editButton" className="button">Edit</button>
-            </Link>
+            <h4>Edit an existing survey</h4> 
+            <br></br> 
             <br/>
-            <br/>
-        </div>        
+            <div>
+            {!isLoading && surveys.length > 0 && surveys[0].surveyID!= null && surveys.map(s => 
+            <div>
+                <Container>
+                    <Row>
+                        <Col>
+                        </Col>
+                        <Col>
+                            <span key={s.surveyID}>{s.name} </span>
+                        </Col>
+                        <Col>
+                            <Link to={`/editsurvey/${s.surveyID}`}>
+                                <Button variant="secondary">Edit</Button>
+                            </Link>
+                        </Col>
+                        <Col>
+                        </Col>
+                    </Row>
+                </Container>                
+                
+                <br/>
+                
+            </div>        
             
         )}
         {!isLoading && surveys.length === 0 && <p>There aren't any surveys yet.</p>}
