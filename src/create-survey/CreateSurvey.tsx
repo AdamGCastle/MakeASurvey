@@ -12,7 +12,7 @@ const CreateSurvey: FunctionComponent = () => {
     return (
         <div>
             <div className="alignCentre">
-                <h1 > Welcome to Make a Survey!</h1>            
+                <h1 > Welcome to Make a Survey!!</h1>            
                 <p>Enter the name of your survey, fill in the questions and answers, then hit submit!</p>
             </div>
             <br></br>
