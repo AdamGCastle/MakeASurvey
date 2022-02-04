@@ -87,8 +87,11 @@
 
 
 .bigtextbox {    
-  width: 50%;
+  width: 50%; 
+  font-size:small; 
 }
+
+
 
 
 .alignCentre{
@@ -102,14 +105,15 @@
 
 .button:hover{
   cursor: pointer;
-
 }
+
 
 .addRemoveButton {
-  margin-left: 2em;  
+  margin-left: 2em; 
+  font-size: large;
+  
+
 }
-
-
 
 #blueButton {
   color: #fff;
@@ -137,6 +141,8 @@
 
 #checkbox{
   margin-left: 5%;
+  width: 1em;
+  height: 1em;  
   
 }
 

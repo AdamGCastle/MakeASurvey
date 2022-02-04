@@ -37,8 +37,8 @@ const AnswerBuilder: FunctionComponent<AnswerBuilderProps> = ({ answerNumber, on
     return (
         
         <div className="indent answerBox">
-            Answer {answerNumber}  :<span>   </span>
-            <input type="text" placeholder="Enter answer" className="bigtextbox" id={'a' + answerNumber} value = {myAnswer.text} onChange={answerTextChanged} />
+            Answer {answerNumber}  :<span> </span>
+            <input type="text" placeholder="Enter answer" className="bigtextbox font-size-sm" id={'a' + answerNumber} value = {myAnswer.text} onChange={answerTextChanged} />
             <Button className="addRemoveButton" variant="danger" size="sm" onClick={() => removeAnswer(myAnswer.answerID)}>Remove Answer</Button>
             <br></br>
             <br></br>

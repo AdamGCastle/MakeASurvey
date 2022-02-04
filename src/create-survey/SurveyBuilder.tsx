@@ -118,7 +118,7 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
             {!isLoading && <div>
                 <div className="indent">                
                     <strong> Name of Survey:  </strong>
-                    <input placeholder="Enter the name of your survey" className="medtextbox" type="text" onChange={surveyNameChanged} value={mySurvey.name}></input>
+                    <input placeholder="Enter the name of your survey" className="bigtextbox" type="text" onChange={surveyNameChanged} value={mySurvey.name}></input>
                     
                     {/* <p>{surveyJson}</p> */}
                     <br/>
