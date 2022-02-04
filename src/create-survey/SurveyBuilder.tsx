@@ -136,7 +136,7 @@ const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValu
                     }
 
                     <br/>
-                    <Button variant="success" className="addRemoveButton" onClick={() => addQuestion()}>Add Question</Button>
+                    <Button variant="success" size="sm" className="addRemoveButton" onClick={() => addQuestion()}>Add Question</Button>
                     <br/>
                     <br/> 
                 </div>  
