@@ -44,14 +44,14 @@ function Layout() {
             <NavDropdown.Item href="https://teacheradmin.azurewebsites.net/">TeacherAdmin</NavDropdown.Item>
           </NavDropdown>
           <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/createsurvey">New survey</Nav.Link>  
+          {/* <Nav.Link href="/createsurvey">New survey</Nav.Link>   */}
         </Nav>
-      </Navbar>     
-        
+      </Navbar>      
+      <main className='main'>  
       <div className="card"> 
         <Outlet/> 
         </div>
-      
+      </main>
           
 
     </div>
