@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route} from "react-router-dom";
+import { Routes, Route, Outlet} from "react-router-dom";
 import Home from './home/Home';
 import CreateSurvey from './create-survey/CreateSurvey';
 import EditSurvey from './edit-survey/EditSurvey';
@@ -11,27 +11,27 @@ import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 export default function App() {
   return (      
     
-    <main className='main'>          
-      <Layout />
-      <div className="card">                        
+    // <main className='main'>          
+      // <Layout />
+      //<div className="card">
           <Routes>
-            {/* <Route path="/" element={<Layout/>}> */}
-              <Route path="/" element={<Home/>}/>
+            <Route path="/" element={<Layout/>}>
+              <Route index element={<Home/>}/>
               <Route path="/createsurvey/" element={CreateSurvey()} />
               <Route path="/editsurvey/:id" element={<EditSurvey />}/>
               <Route path="/editsurveys" element={<EditSelect />}/>
               <Route path="*" element = {NotFound()} />
-            {/* </Route> */}
+            </Route>
           </Routes>               
-      </div>      
-    </main>    
+      // </div>      
+    // </main>    
    
   );
 }
 
 function Layout() {
   return (
-    <div>
+    <div className='main'>
       <Navbar bg="light" className='justify-content-center'>
         <Navbar.Brand>
           {/* <Nav.Link href="https://adamcastleprojects.azurewebsites.net/">Adam Castle CV</Nav.Link> */}
@@ -46,9 +46,13 @@ function Layout() {
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/createsurvey">New survey</Nav.Link>  
         </Nav>
-      </Navbar>
-      {/* <hr/> */}
-      {/* <Outlet/>      */}
+      </Navbar>     
+        
+      <div className="card"> 
+        <Outlet/> 
+        </div>
+      
+          
 
     </div>
   
