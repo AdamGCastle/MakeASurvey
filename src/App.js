@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route, Outlet} from "react-router-dom";
+import { Routes, Route} from "react-router-dom";
 import Home from './home/Home';
 import CreateSurvey from './create-survey/CreateSurvey';
 import EditSurvey from './edit-survey/EditSurvey';
