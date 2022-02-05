@@ -12,16 +12,16 @@ export default function App() {
   return (      
     
     <main className='main'>          
-      {/* <NavigationBar />     */}
+      <Layout />
       <div className="card">                        
           <Routes>
-            <Route path="/" element={<Layout/>}>
-              <Route index element={<Home/>}/>
+            {/* <Route path="/" element={<Layout/>}> */}
+              <Route path="/" element={<Home/>}/>
               <Route path="/createsurvey/" element={CreateSurvey()} />
               <Route path="/editsurvey/:id" element={<EditSurvey />}/>
               <Route path="/editsurveys" element={<EditSelect />}/>
               <Route path="*" element = {NotFound()} />
-            </Route>
+            {/* </Route> */}
           </Routes>               
       </div>      
     </main>    
@@ -38,17 +38,17 @@ function Layout() {
         </Navbar.Brand>    
         <Nav>
           <NavDropdown title="Projects">
-            <NavDropdown.Item to="https://adamcastleprojects.azurewebsites.net/">All projects</NavDropdown.Item>
-            <NavDropdown.Item to="https://takeasurvey.azurewebsites.net/">TakeASurvey</NavDropdown.Item>
-            <NavDropdown.Item to="https://castlelibrary.azurewebsites.net/">CastleLibrary</NavDropdown.Item>
-            <NavDropdown.Item to="https://teacheradmin.azurewebsites.net/">TeacherAdmin</NavDropdown.Item>
+            <NavDropdown.Item href="https://adamcastleprojects.azurewebsites.net/">All projects</NavDropdown.Item>
+            <NavDropdown.Item href="https://takeasurvey.azurewebsites.net/">TakeASurvey</NavDropdown.Item>
+            <NavDropdown.Item href="https://castlelibrary.azurewebsites.net/">CastleLibrary</NavDropdown.Item>
+            <NavDropdown.Item href="https://teacheradmin.azurewebsites.net/">TeacherAdmin</NavDropdown.Item>
           </NavDropdown>
-          <Nav.Link to="/">Home</Nav.Link>
-          <Nav.Link to="/createsurvey">New survey</Nav.Link>  
+          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="/createsurvey">New survey</Nav.Link>  
         </Nav>
       </Navbar>
-      <hr/>
-      <Outlet/>     
+      {/* <hr/> */}
+      {/* <Outlet/>      */}
 
     </div>
   
