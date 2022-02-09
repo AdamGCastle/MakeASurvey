@@ -11,9 +11,6 @@ import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 export default function App() {
   return (      
     
-    // <main className='main'>          
-      // <Layout />
-      //<div className="card">
           <Routes>
             <Route path="/" element={<Layout/>}>
               <Route index element={<Home/>}/>
@@ -22,10 +19,7 @@ export default function App() {
               <Route path="/editsurveys" element={<EditSelect />}/>
               <Route path="*" element = {NotFound()} />
             </Route>
-          </Routes>               
-      // </div>      
-    // </main>    
-   
+          </Routes>    
   );
 }
 

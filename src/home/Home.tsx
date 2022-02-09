@@ -14,7 +14,8 @@ const Home = () => {
       <div className="alignCentre">    
         <h1>Welcome to MakeASurvey</h1>
         <br></br>        
-        <p>Create your very own survey and see which answers everyone picks!</p>    
+        <p>Create your very own survey and see which answers everyone picks!</p> 
+        <p>Surveys can be taken <a href="https://takeasurvey.azurewebsites.net/">here</a></p>   
         <br></br>
         <Link to="/createsurvey">
           <Button variant="primary" size="lg">Make a New Survey</Button>
