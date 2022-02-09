@@ -7,6 +7,7 @@ import DeleteSurvey from "./DeleteSurvey";
 
 
 
+
 const EditSurvey: FunctionComponent = () => {
 
     const { id } = useParams();
@@ -76,7 +77,6 @@ const EditSurvey: FunctionComponent = () => {
         setShowDeleteDialogue(false);
     }
     
-
 
     return (
         <div>
