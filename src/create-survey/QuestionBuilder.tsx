@@ -1,12 +1,9 @@
 import { ChangeEvent, FunctionComponent } from "react";
 import { useState } from "react";
 import AnswerBuilder from "./AnswerBuilder"
-import { IQuestion, IAnswer } from "./models";
+import { IQuestion, IMultipleChoiceOption } from "./models";
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-
-
 
 interface IQuestionUpdatedFunction{
     (updatedQuestion: IQuestion): void
@@ -17,13 +14,11 @@ interface IRemoveQuestionFunction{
 }
 
 interface QuestionBuilderProps{
- 
     questionNumber: number,
     onQuestionUpdated: IQuestionUpdatedFunction
     removeQuestion : IRemoveQuestionFunction 
     initialQuestionValue: IQuestion
 }
-
 
 //props down (prop drilling)
 //events up
@@ -31,9 +26,7 @@ interface QuestionBuilderProps{
 const QuestionBuilder: FunctionComponent<QuestionBuilderProps> = ({questionNumber, onQuestionUpdated, removeQuestion, initialQuestionValue}) => {
 
     const [myQuestion, setQuestion] = useState<IQuestion>(initialQuestionValue);
-
-    const questionTextChanged = (elem: ChangeEvent<HTMLInputElement>) => {
-        
+    const questionTextChanged = (elem: ChangeEvent<HTMLInputElement>) => {        
         const value = elem.target.value;  
         const copyOfMyQuestion = {...myQuestion}; 
         copyOfMyQuestion.text = value;
@@ -41,84 +34,115 @@ const QuestionBuilder: FunctionComponent<QuestionBuilderProps> = ({questionNumbe
         onQuestionUpdated(copyOfMyQuestion);
     }
 
-    const questionNumAnswersChanged = (e: ChangeEvent<HTMLInputElement>) => {
-        
-        const copyOfMyQuestion = { ...myQuestion};  
-        // console.log(copyOfMyQuestion.text)
-        
-        copyOfMyQuestion.isMultipleChoice = e.target.checked;
+    const checkboxChanged = (e: ChangeEvent<HTMLInputElement>, checkboxName: string) => {
+        const copyOfMyQuestion = { ...myQuestion };
+        if(checkboxName === 'isMultipleChoice') {
+            copyOfMyQuestion.isMultipleChoice = e.target.checked;
+        } else if (checkboxName === 'multipleAnswersPermitted') {
+            copyOfMyQuestion.multipleAnswersPermitted = e.target.checked;
+        }
+
         setQuestion(copyOfMyQuestion);
-        
-        onQuestionUpdated(copyOfMyQuestion);  
-    }
+        onQuestionUpdated(copyOfMyQuestion);
+    };
    
-   
-    const addAnswer = () => {
-        
+    const addAnswer = () => {        
         const copyOfMyQuestion = {...myQuestion};
-        // const ansNumber = copyOfMyQuestion.answers.length+1
-        copyOfMyQuestion.answers.push({text: '', answerID: Math.random()});
+        const newKey = Math.random();
+        copyOfMyQuestion.multipleChoiceOptions.push({key: newKey, text: '', id: newKey});
         
         setQuestion(copyOfMyQuestion);
     }
 
     const removeAnswer = (answerID: number) => {
-                
-        console.log(`Hi! I'm the removeAnswer() function. The Answer ID I've been told to take out of the survey.questions.answers array is ${answerID}. Let's get on that now.`)
         const copyOfMyQuestion = {...myQuestion};
-        const indexOfAnswer = copyOfMyQuestion.answers.findIndex(a => a.answerID === answerID);
-        copyOfMyQuestion.answers.splice(indexOfAnswer,1);
+        const indexOfAnswer = copyOfMyQuestion.multipleChoiceOptions.findIndex(a => a.id === answerID);
+        copyOfMyQuestion.multipleChoiceOptions.splice(indexOfAnswer,1);
         console.log(copyOfMyQuestion);
         
         setQuestion(copyOfMyQuestion);  
         onQuestionUpdated(copyOfMyQuestion); 
-
     }
 
-    const onAnswerUpdated = (answer: IAnswer, index: number) => {
-
+    const onAnswerUpdated = (answer: IMultipleChoiceOption, index: number) => {
         const copyOfNewQuestion = {...myQuestion};        
-        copyOfNewQuestion.answers[index] = answer;
+        copyOfNewQuestion.multipleChoiceOptions[index] = answer;
 
         setQuestion(copyOfNewQuestion);
-        onQuestionUpdated(copyOfNewQuestion);
-        
-    }    
+        onQuestionUpdated(copyOfNewQuestion);        
+    }
 
     return (
         <div >
-            <br></br>
-            <div className="indent questionBox">
-                <strong className="alignCentre">Question {questionNumber}: </strong>
+            <br/>
+            <div className="questionBox">
+                <h5 className="alignCentre">Question {questionNumber}: </h5>   
+                <div className="row mt-3">
+                    <div className="col-9">
+                        <input 
+                            type="text" 
+                            placeholder="Enter question" 
+                            className="text-input font-size-sm me-3 mb-3" 
+                            id={'q' + questionNumber} 
+                            onChange={questionTextChanged} 
+                            value={myQuestion.text}
+                            key={'q' + questionNumber}
+                        />
+                    </div>
+                    <div className="col">
+                        <Button variant="danger" className="btn btn-sm" onClick={() => removeQuestion(questionNumber)}>Remove</Button>    
+                    </div>
+                </div>             
                 
-                <input type="text" placeholder="Enter question" className="bigtextbox font-size-sm" id={'q' + questionNumber} onChange={questionTextChanged} value={myQuestion.text}/>
-                <Button className="addRemoveButton" variant="danger" size="sm" onClick={() => removeQuestion(questionNumber)}>Remove Question</Button>
-                <br></br>
-                <br></br>
-                <p></p>
-                {
-                    myQuestion.answers.map((a, index) => (
-                        
-                        <AnswerBuilder
-                        key={a.answerID} 
-                        answerNumber={index+1} 
-                        onAnswerUpdated={(answer: IAnswer) => onAnswerUpdated(answer, index)}
-                        removeAnswer={(answerNumber: number) => removeAnswer(a.answerID)}
-                        initialAnswerValue={a}                      
-                        />         
-                    ))
-                }
-                                
-                <Button className="addRemoveButton" variant="success" size="sm" onClick={() => addAnswer()}>Add Answer</Button>
-                <br/>
-                <br/>
-                <label className=" indent">Let users select multiple answers: </label>
-                <input type="checkbox" className="button" id="checkbox" defaultChecked={myQuestion.isMultipleChoice} onChange={e => questionNumAnswersChanged(e)}></input>
-                
-                <br/>
-                
-            </div>
-            
+                <div className="mt-3">
+                <label className="text-sm me-3">Multiple choice: </label>                
+                    <input 
+                        type="checkbox"
+                        id="multipleChoiceCheckbox"
+                        className="form-check-input"
+                        defaultChecked={myQuestion.isMultipleChoice} 
+                        onChange={e => checkboxChanged(e, 'isMultipleChoice')}
+                        key={'multipleChoice' + questionNumber}
+                    />
+                </div>
+                { myQuestion.isMultipleChoice && (
+                    <div id="multipleChoiceDiv">
+                        {
+                            myQuestion.multipleChoiceOptions.map((a, index) => (                        
+                                <AnswerBuilder
+                                    key={a.id} 
+                                    answerNumber={index+1} 
+                                    onAnswerUpdated={(answer: IMultipleChoiceOption) => onAnswerUpdated(answer, index)}
+                                    removeAnswer={() => removeAnswer(a.id)}
+                                    initialAnswerValue={a}                      
+                                />         
+                            ))
+                        }
+
+                        <Button 
+                            className=" btn-sm mt-3" 
+                            variant="success" 
+                            size="sm"
+                            style={{display: myQuestion.multipleChoiceOptions.length >= 26 ? "none" : "inline-block"}}
+                            onClick={() => addAnswer()}
+                        >
+                            Add Answer
+                        </Button>
+                        <br/>
+                        <br/>
+                        <label className="me-2">Let users select multiple answers: </label>
+                        <input 
+                            type="checkbox"
+                            id="multipleAnswersPermittedCheckbox"
+                            className="form-check-input"
+                            defaultChecked={myQuestion.multipleAnswersPermitted}
+                            onChange={e => checkboxChanged(e, 'multipleAnswersPermitted')}
+                            key={'multipleAnswersPermitted' + questionNumber}
+                        />
+                    </div>
+                )}
+                <br/>                
+            </div>            
         </div>
     )
 }

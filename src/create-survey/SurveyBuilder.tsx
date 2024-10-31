@@ -1,157 +1,305 @@
-import { useState, FunctionComponent } from "react";
+import { useState, FunctionComponent, useEffect } from "react";
 import QuestionBuilder from "./QuestionBuilder";
 import { ChangeEvent } from "react";
-import { IQuestion, ISurvey } from "./models";
+import { IDialogueBox, IQuestion, ISurvey } from "./models";
 import { useNavigate } from "react-router-dom";
-import Button from 'react-bootstrap/Button';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-
+import DialogueBox from "../edit-survey/DialogueBox";
 
 interface SurveyBuilderProps{       
-    initialSurveyValue: ISurvey
+    initialSurveyValue: ISurvey;
 }
 
-const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValue}) => {
+const defaultDialogueBoxValue = {title: '', show: false, close: false, message: '', isQuestion: false, confirm: false, onOkNavigationRoute: ''};
+// const initialSurveyValue = 
+// {
+//     key: newSurveyKey,
+//     name : '', 
+//     id: 0,
+//     changesMade: false,
+//     questions: [{
+//         key: newQuestionKey, 
+//         id: newQuestionKey, 
+//         text: '', 
+//         multipleChoiceOptions: [], 
+//         isMultipleChoice: false, 
+//         multipleAnswersPermitted: false}] 
+// }
 
-    const [mySurvey, setSurvey] = useState<ISurvey>(initialSurveyValue);
+
+const SurveyBuilder: FunctionComponent<SurveyBuilderProps> = ({initialSurveyValue}) => {
+    const [survey, setSurvey] = useState<ISurvey>(initialSurveyValue);    
     const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useState(false); 
-    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [yesDialogueAction, setYesDialogueAction] = useState(''); 
+    const [dialogueBox, setDialogueBox] = useState<IDialogueBox>(defaultDialogueBoxValue);
+    const baseUrl = process.env.REACT_APP_PORTFOLIO_WEB_API_BASE_URL;
     
-    const surveyNameChanged = (elem: ChangeEvent<HTMLInputElement>) => {
-        
+    const surveyNameChanged = (elem: ChangeEvent<HTMLInputElement>) => {        
         const value = elem.target.value;
-        const copyOfMySurvey = {...mySurvey};
-        copyOfMySurvey.name = value;
-        setSurvey(copyOfMySurvey);
-        
-        
-        // console.log(mySurvey);
+        const copyOfSurvey = {...survey};
+        copyOfSurvey.name = value;
+        setSurvey(copyOfSurvey);
     }
 
     const addQuestion = () => {
-                            // console.log(mySurvey);
-        const copyOfMySurvey = {...mySurvey};        
-        copyOfMySurvey.questions.push({questionID: Math.random(), text: '', answers: [], isMultipleChoice: false});
-        
-        setSurvey(copyOfMySurvey);
+        const copyOfSurvey = {...survey};
+        const newKey = Math.random();
+        copyOfSurvey.questions.push({key: newKey, id: newKey, text: '', multipleChoiceOptions: [], isMultipleChoice: false, multipleAnswersPermitted: false});
+        setSurvey(copyOfSurvey);
     }
 
     const removeQuestion = (questionNum: number) => {
-        console.log("Question number to splice is " + questionNum)
         const indexOfQuestion = questionNum;
-        const copyOfMySurvey = {...mySurvey};
-        copyOfMySurvey.questions.splice(indexOfQuestion,1);   
+        const copyOfSurvey = {...survey};
+        copyOfSurvey.questions.splice(indexOfQuestion,1);   
         
-        setSurvey(copyOfMySurvey);           
-
+        setSurvey(copyOfSurvey);
     }
     
-    const onQuestionUpdated = (question: IQuestion, index: number) => {    
+    const onQuestionUpdated = (question: IQuestion, index: number) => {        
+        const copyOfSurvey = {...survey};        
+        copyOfSurvey.questions[index] = question;
+        copyOfSurvey.changesMade = true;
         
-        const copyOfMySurvey = {...mySurvey};        
-        copyOfMySurvey.questions[index] = question;
-        
-        setSurvey(copyOfMySurvey);        
-        // console.log(copyOfMySurvey)
+        setSurvey(copyOfSurvey); 
     }
  
     const submitSurvey = async () => {
-
-               
-        mySurvey.questions.forEach(q => {
-            q.questionID = q.questionID < 1 ? 0 : q.questionID;
-            q.answers.forEach(a => {                
-                a.answerID = a.answerID < 1 ? 0 : a.answerID;                              
+            survey.questions.forEach(q => {
+            q.id = q.id < 1 ? 0 : q.id;
+            q.multipleChoiceOptions.forEach(a => {                
+                a.id = a.id < 1 ? 0 : a.id;                              
             });            
         });
 
-        if(mySurvey.surveyID === 0){
-            
+        if(survey.id === 0){   
+            setIsLoading(true);  
             try{
-                setIsLoading(true);
-            console.log('New Survey to Create. Send to api: ' + JSON.stringify(mySurvey));
-            const response = await fetch('https://acsurvey.azurewebsites.net/api/Surveys', { 
-            method: 'POST',
-            body: JSON.stringify(mySurvey),
-            
-            headers: {'Content-Type': 'application/json'}
-            })
-            console.log(response);
-            if(!response.ok) {
-                throw new Error("Couldn't connect to the database.")
-            }
-            setIsLoading(false);
-  
-        } catch(error: any) {
-            setError(error.message);
-  
-        }
-        setIsLoading(false);
-
-
-            //Nor does this one
-            //headers: {'Access-Control-Allow-Origin': '*'}    
-        
-        // const data = await response.json();
-        
-        } else {
-            console.log(`This isn't a new survey, it's one that's in the process of being updated, so I'm sending a put request not a post request. Send to API ${JSON.stringify(mySurvey)}`);
-            const response = await fetch('https://acsurvey.azurewebsites.net/api/Surveys/' + mySurvey.surveyID, { 
-            method: 'PUT',
-            body: JSON.stringify(mySurvey),            
-            headers: {'Content-Type': 'application/json'}
-            })
-            console.log(response);
-            // const data = await response.json();           
-
-        }
-        navigate("/");        
-
-    }
-
-    return (
-        
-        <div>
-            {!isLoading && <div>
-                <div className="indent">                
-                    <strong> Name of Survey:  </strong>
-                    <input placeholder="Enter the name of your survey" className="bigtextbox" type="text" onChange={surveyNameChanged} value={mySurvey.name}></input>
+                const response = await fetch(`${baseUrl}/Surveys/Create`, { 
+                    method: 'POST',
+                    body: JSON.stringify(survey),            
+                    headers: {'Content-Type': 'application/json'}
+                });
+                
+                if(!response.ok) {
+                    setIsLoading(false);
+                    let responseText = await response.text();
                     
-                    {/* <p>{surveyJson}</p> */}
-                    <br/>
-                    {
-                        mySurvey.questions.map((q, index) => (
-                            <QuestionBuilder 
-                            key={q.questionID} 
-                            questionNumber={index+1}
-                            onQuestionUpdated={(question: IQuestion) => onQuestionUpdated(question, index)}
-                            removeQuestion={(questionNum: number) => removeQuestion(index)}
-                            initialQuestionValue={q}
-                            />     
-                            
-                        ))
+                    if(responseText == null || responseText == ''){
+                        responseText = 'Failed to save survey';
                     }
 
+                    setupDialogueBox(true, 'Error', responseText, false);
+
+                    return;
+                }
+                
+                setIsLoading(false);
+                setupDialogueBox(true, 'Success', 'Survey saved!', false);
+                survey.changesMade = false;
+            } catch(error: any) {
+                setupDialogueBox(true, 'Error', error.message, false);
+                setIsLoading(false);
+                return;
+            }
+
+            setIsLoading(false);        
+        } else {
+            let errorMessage = 'Failed to save survey';
+
+            try{
+                const response = await fetch(`${baseUrl}/Surveys/Update`, { 
+                    method: 'PUT',
+                    body: JSON.stringify(survey),            
+                    headers: {'Content-Type': 'application/json'}
+                });      
+
+                if(!response.ok) {
+                    setIsLoading(false);
+                    let responseText = await response.text();
+                    
+                    if(responseText != null && responseText != ''){
+                        errorMessage = responseText;
+                    }
+
+                    setupDialogueBox(true, 'Error', errorMessage, false);
+                    return;
+                }
+
+                setIsLoading(false);
+                setupDialogueBox(true, 'Success', 'Survey updated!', false);
+                survey.changesMade = false;
+            } catch(error: any) {
+                if(error.message != null && error.message != ''){
+                    errorMessage = error.message
+                }
+                
+                setupDialogueBox(true, 'Error', errorMessage, false);
+                setIsLoading(false);
+            }            
+        }
+    }
+
+    const onYesClick = async () => {
+        if(yesDialogueAction == 'deleteSurvey'){
+            confirmDelete();
+
+            return;
+        } else if(yesDialogueAction == 'exitSurvey'){
+            const newSurveyKey = Math.random();
+            const newQuestionKey = Math.random();
+
+            const copyOfSurvey = {...survey};
+            copyOfSurvey.key = newSurveyKey;
+            copyOfSurvey.name = '';
+            copyOfSurvey.id = 0;
+            copyOfSurvey.questions = [{
+                        key: newQuestionKey, 
+                        id: 0, 
+                        text: '', 
+                        multipleChoiceOptions: [], 
+                        isMultipleChoice: false, 
+                        multipleAnswersPermitted: false
+                    }];           
+
+            await setSurvey(copyOfSurvey);
+
+            initialSurveyValue.key = newSurveyKey;
+            initialSurveyValue.questions = [];
+            initialSurveyValue.name = '';
+            initialSurveyValue.id = 0;
+
+            navigate('/');
+        }
+    }
+
+    const confirmDelete = async () => {
+        let errorMessage = 'Failed to delete survey.';
+
+        try{
+            const response = await fetch(`${baseUrl}/Surveys/Delete?id=${survey.id}`, {
+                method: 'DELETE'
+            })
+            
+            console.log('response: ', response);
+
+            if(!response.ok) {
+                let responseText = await response.text();
+                
+                if(responseText != null && responseText != ''){
+                    errorMessage = responseText;
+                }
+
+                setupDialogueBox(true, 'Error', errorMessage, false);
+                setIsLoading(false);
+                return;
+            } 
+
+            setupDialogueBox(true, 'Success', 'Survey deleted.', false, '/');
+        } catch(error: any) {
+            if(error.message != null && error.message != ''){
+                errorMessage = error.message
+            }
+            
+            setupDialogueBox(true, 'Error', errorMessage, false);
+            setIsLoading(false);   
+        }
+    }
+
+    const closeDialogueBox = () => {
+        const copyOfDialogueBox = {...dialogueBox};
+        copyOfDialogueBox.isQuestion = false;
+        copyOfDialogueBox.title = '';
+        copyOfDialogueBox.message = '';
+        copyOfDialogueBox.show = false;
+
+        setDialogueBox(copyOfDialogueBox);
+    }
+
+    const setupDialogueBox = (show: boolean, title: string = '', message: string = '', isQuestion: boolean = false, onOkNavigationRoute: string = '') => {
+        const copyOfDialogueBox = {...dialogueBox};
+
+        copyOfDialogueBox.isQuestion = isQuestion;
+        copyOfDialogueBox.title = title;
+        copyOfDialogueBox.message = message;
+        copyOfDialogueBox.show = show;
+        copyOfDialogueBox.onOkNavigationRoute = onOkNavigationRoute;
+
+        setDialogueBox(copyOfDialogueBox);
+    }
+
+    const onBackClicked = () => {
+        if(!survey.changesMade){
+            navigate('/');
+
+            return;
+        }
+
+        setYesDialogueAction('exitSurvey');
+        setupDialogueBox(true, 'Exit survey', 'Are you sure you want to exit this survey? Unsaved changes will be lost.', true);
+    }
+
+    const onDeleteClicked = () => {
+        setYesDialogueAction('deleteSurvey');
+        setupDialogueBox(true,'Delete Survey',`Are you sure you want to delete "${survey.name}"?`, true);
+    }
+
+    useEffect(() => {
+        console.log('Survey has been updated to:', survey);
+    }, [survey]);
+    
+    return (        
+        <div>
+            {!isLoading && <div>
+                <div >
+                    <div className="row">
+                        <div className="col-2">         
+                            <label className="me-2 fw-bold">Name:  </label>
+                        </div>
+                        <div className="col"> 
+                            <input placeholder="Enter the name of your survey" className="text-input" type="text" onChange={surveyNameChanged} value={survey.name}></input>
+                        </div>
+                    </div>
                     <br/>
-                    <Button variant="success" size="sm" className="addRemoveButton" onClick={() => addQuestion()}>Add Question</Button>
+                    {
+                        survey.questions.map((q, index) => (
+                            <QuestionBuilder
+                                key={q.key}
+                                questionNumber={index+1}
+                                onQuestionUpdated={(question: IQuestion) => onQuestionUpdated(question, index)}
+                                removeQuestion={() => removeQuestion(index)}
+                                initialQuestionValue={q}
+                            />
+                        ))
+                    }
                     <br/>
-                    <br/> 
+                    <div className="alignCentre">                     
+                    <button className="btn btn-sm btn-success addRemoveButton text-center" onClick={() => addQuestion()}>Add Question</button>                    
+                    </div>
+                    <br/>
+                    <br/>             
                 </div>  
                 <div className="alignCentre">
-                    <Button variant="primary" onClick={() => submitSurvey()}>Submit Survey</Button> 
-                </div>   
-                <div>{error}</div>         
-                        
+                    <button className="btn btn-primary btn-sm me-3" onClick={() => submitSurvey()}>Save</button>
+                    <button className="btn btn-danger btn-sm" onClick={() => onDeleteClicked()}>Delete Survey</button>
+                    <DialogueBox
+                        show={dialogueBox.show}
+                        title={dialogueBox.title}
+                        confirm={onYesClick}
+                        close={closeDialogueBox}
+                        message={dialogueBox.message}
+                        isQuestion={dialogueBox.isQuestion}
+                        onOkNavigationRoute={dialogueBox.onOkNavigationRoute}
+                    />
+                </div>
             </div>}
             {isLoading &&<div>
-                <p>Loading...this may take a few seconds...</p>
-
+                <p>Loading...</p>
             </div>}
-        </div>
-        
+            <button onClick={onBackClicked} className='btn btn-secondary btn-sm me-3'>Back</button>      
+        </div>        
     )
 }
 

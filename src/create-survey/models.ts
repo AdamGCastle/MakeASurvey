@@ -1,20 +1,32 @@
 export interface ISurvey{
-    name: string
-    questions: IQuestion[]
-    surveyID: number
+    key: number;
+    name: string;
+    questions: IQuestion[];
+    id: number;
+    changesMade: boolean;
 }
 
 export interface IQuestion{
-    questionID: number;
-    text: string
-    answers: IAnswer[]
+    key: number;
+    id: number;
+    text: string;
+    multipleChoiceOptions: IMultipleChoiceOption[]
     isMultipleChoice: boolean;
-    // numberInSurvey: number
+    multipleAnswersPermitted: boolean;
 }
 
-export interface IAnswer{
-    text: string
-    answerID: number;
-    // answerNumber: number;
+export interface IMultipleChoiceOption{
+    key: number;
+    text: string;
+    id: number;
+}
 
+export interface IDialogueBox{
+    title: string;
+    message: string;
+    isQuestion: boolean;
+    show: boolean;
+    close: any;
+    confirm: any;    
+    onOkNavigationRoute: string;
 }
