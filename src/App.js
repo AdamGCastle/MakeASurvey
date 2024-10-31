@@ -45,19 +45,7 @@ function Layout() {
       <div className="card"> 
         <Outlet/> 
         </div>
-      </main>
-          
+      </main>          
     </div>
-  
-  
   )
 }
-
-
-// <nav className='nav justify-content-center'>
-    // <NavLink to="/">Home</NavLink>
-    // <NavLink to="/createsurvey">Make a survey</NavLink>
-    // <NavLink to ="/editsurveys">Edit a survey</NavLink>
-    //</nav>
-
-

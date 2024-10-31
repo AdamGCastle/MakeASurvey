@@ -1,10 +1,10 @@
 import { ChangeEvent, FunctionComponent, useState } from "react";
-import { IAnswer } from "./models";
+import { IMultipleChoiceOption } from "./models";
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-interface IAnswerUpdatedFunction{
-    (updatedAnswer: IAnswer, 
+interface IMultipleChoiceOptionUpdatedFunction{
+    (updatedAnswer: IMultipleChoiceOption, 
         ): void
 }
 
@@ -12,18 +12,18 @@ interface IRemoveAnswerFunction{
     (answerNum: number): void;
 }
 
-
 interface AnswerBuilderProps{
     answerNumber: number,
-    onAnswerUpdated: IAnswerUpdatedFunction,
+    onAnswerUpdated: IMultipleChoiceOptionUpdatedFunction,
     removeAnswer: IRemoveAnswerFunction,   
-    initialAnswerValue: IAnswer
+    initialAnswerValue: IMultipleChoiceOption
     
 }
 
 const AnswerBuilder: FunctionComponent<AnswerBuilderProps> = ({ answerNumber, onAnswerUpdated, removeAnswer, initialAnswerValue}) => {
 
-    const [myAnswer, setAnswer] = useState<IAnswer>(initialAnswerValue);
+    const [myAnswer, setAnswer] = useState<IMultipleChoiceOption>(initialAnswerValue);
+    const answerLetter = answerNumber < 1 || answerNumber > 26 ? null : String.fromCharCode(96 + answerNumber)
 
     const answerTextChanged = (elem: ChangeEvent<HTMLInputElement>) => {
 
@@ -34,15 +34,25 @@ const AnswerBuilder: FunctionComponent<AnswerBuilderProps> = ({ answerNumber, on
         onAnswerUpdated(copyOfMyAnswer);        
     }
 
-    return (
-        
-        <div className="indent answerBox">
-            Answer {answerNumber}  :<span> </span>
-            <input type="text" placeholder="Enter answer" className="bigtextbox font-size-sm" id={'a' + answerNumber} value = {myAnswer.text} onChange={answerTextChanged} />
-            <Button className="addRemoveButton" variant="danger" size="sm" onClick={() => removeAnswer(myAnswer.answerID)}>Remove Answer</Button>
-            <br></br>
-            <br></br>
+    return (        
+        <div className="row ms-2 mt-3 mb-2">
+            <div className="col-lg-2 col-md-2 col-sm-8">
+                <span className="text-sm me-3">{answerLetter})</span>
+            </div>
+            <div className="col-10">
+                <input 
+                    type="text" 
+                    placeholder="Enter answer" 
+                    className="text-input text-sm me-3" 
+                    id={'a' + answerNumber} 
+                    value = {myAnswer.text} 
+                    onChange={answerTextChanged} 
+                />
             
+                <Button 
+                    className="btn btn-sm btn-danger mt-3" 
+                    onClick={() => removeAnswer(myAnswer.id)}>Remove</Button>
+            </div>
         </div>
     )
 
